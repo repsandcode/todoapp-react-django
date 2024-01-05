@@ -14,8 +14,10 @@ function App() {
   const fetchData = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/todo/");
-      console.log(response);
-      setTodos(response.data);
+      const all = response.data;
+      
+      console.log(all);
+      setTodos(all);
     } catch (error) {
       console.log(error);
     }
