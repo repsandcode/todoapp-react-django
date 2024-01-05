@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { GoCheckCircle, GoCircle } from "react-icons/go";
+
 const TodoForm = () => {
   const [newTodo, setNewTodo] = useState({
     body: "",
@@ -23,23 +25,21 @@ const TodoForm = () => {
   };
 
   return (
-    <div className="pt-20 flex">
-      <form onSubmit={postTodo} className="w-full flex">
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Add Todo</span>
+    <div className="rounded bg-slate-800 divide-y divide-slate-700">
+      <form onSubmit={postTodo}>
+        <div className="flex px-6 py-5 gap-3">
+          <div className="self-center text-xl cursor-pointer text-sky-500">
+            <GoCircle />
           </div>
+
           <input
             type="text"
+            className="outline-none w-full text-base bg-transparent"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
             onChange={handleChange}
             required
           />
-        </label>
-        <button type="submit" className="btn btn-primary ml-2 self-end">
-          Add
-        </button>
+        </div>
       </form>
     </div>
   );

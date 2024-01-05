@@ -1,51 +1,38 @@
 import React from "react";
-import {
-  MdOutlineDelete,
-  MdOutlineEdit,
-  MdOutlineCheckBox,
-  MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/md";
+import { GoCheckCircle, GoCircle } from "react-icons/go";
+import { FiEdit2 } from "react-icons/fi";
 
-const TodoBox = ({ todo, handleCheckbox, handleDelete, setEditTodo }) => {
+const TodoBox = ({ todo, handleCheckbox, setEditTodo }) => {
   return (
-    <div className="flex p-3 justify-between">
-      <div className="flex gap-2">
+    <div className="flex px-6 py-5 justify-between">
+      <div className="flex gap-3">
         <div
-          className="text-xl cursor-pointer"
+          className="self-center text-xl cursor-pointer text-sky-500"
           title={todo.id}
           onClick={() => handleCheckbox(todo.id, todo.completed)}
         >
-          {todo.completed ? (
-            <MdOutlineCheckBox />
-          ) : (
-            <MdOutlineCheckBoxOutlineBlank />
-          )}
+          {todo.completed ? <GoCheckCircle /> : <GoCircle />}
         </div>
 
-        <div className={`text-sm ${todo.completed ? "line-through" : ""}`}>
+        <div className={`text-base ${todo.completed ? "line-through" : ""}`}>
           {todo.body}
         </div>
       </div>
 
-      <div className="font-medium flex gap-2">
-        <span className="text-xl cursor-pointer">
-          <label
-            htmlFor="my_modal_6"
-            className=""
-            onClick={() =>
-              setEditTodo({
-                id: todo.id,
-                body: todo.body,
-              })
-            }
-          >
-            <MdOutlineEdit />
-          </label>
-        </span>
-        <span className="text-xl cursor-pointer">
-          <MdOutlineDelete onClick={() => handleDelete(todo.id)} />
-        </span>
-      </div>
+      <span className="self-center text-xl cursor-pointer">
+        <label
+          htmlFor="my_modal_6"
+          className="cursor-pointer"
+          onClick={() =>
+            setEditTodo({
+              id: todo.id,
+              body: todo.body,
+            })
+          }
+        >
+          <FiEdit2 />
+        </label>
+      </span>
     </div>
   );
 };

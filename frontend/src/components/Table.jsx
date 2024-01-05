@@ -19,11 +19,21 @@ const Table = ({ todos, setTodos }) => {
     console.log(editTodo);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = () => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`);
-      const newList = todos.filter((todo) => todo.id !== id);
-      setTodos(newList);
+      // Make a DELETE request to delete all completed todos
+      axios
+        .delete("http://127.0.0.1:8000/api/todo/delete-completed/")
+        .then((response) => {
+          console.log("Delete all completed tasks.");
+          console.log(response);
+          // You may want to update the state or trigger a refresh
+          const newList = todos.filter((todo) => todo.completed !== true);
+          setTodos(newList);
+        })
+        .catch((error) => {
+          console.error("Error during bulk deletion:", error);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -58,24 +68,24 @@ const Table = ({ todos, setTodos }) => {
   };
 
   return (
-    <div className="py-20">
-      <div className="w-11/12 max-w-4xl">
-        <div className="rounded bg-cyan-900 divide-y divide-cyan-800">
-          {todos.map((todo) => (
-            <TodoBox
-              key={todo.id}
-              todo={todo}
-              handleCheckbox={handleCheckbox}
-              handleDelete={handleDelete}
-              setEditTodo={setEditTodo}
-            />
-          ))}
-          <div className="p-3 flex justify-between">
-            <span>
-              {itemsLeft} {itemsLeft === 1 ? "item" : "items"} left
-            </span>
-            <span>Clear completed</span>
-          </div>
+    <div className="py-8">
+      <div className="rounded bg-slate-800 divide-y divide-slate-700">
+        {todos.map((todo) => (
+          <TodoBox
+            key={todo.id}
+            todo={todo}
+            handleCheckbox={handleCheckbox}
+            handleDelete={handleDelete}
+            setEditTodo={setEditTodo}
+          />
+        ))}
+        <div className="px-6 py-4 flex justify-between text-sm">
+          <span>
+            {itemsLeft} {itemsLeft === 1 ? "item" : "items"} left
+          </span>
+          <span className="cursor-pointer" onClick={() => handleDelete()}>
+            Clear completed
+          </span>
         </div>
       </div>
 

@@ -14,22 +14,24 @@ function App() {
   const fetchData = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/todo/");
-      const all = response.data;
-      
-      console.log(all);
-      setTodos(all);
+      console.log(response.data.reverse());
+      setTodos(response.data.reverse());
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="px-8 min-h-screen">
-      <nav className="pt-8">
-        <h1 className="text-2xl">Today's todo list</h1>
-      </nav>
-      <TodoForm />
-      <Table todos={todos} setTodos={setTodos} />
+    <div className="px-2 min-h-screen flex justify-center items-center">
+      <div className="w-full sm:w-10/12 md:w-6/12 max-w-4xl">
+        <nav className="py-8">
+          <h1 className="text-2xl">Today's todo list</h1>
+        </nav>
+        <div className="">
+          <TodoForm />
+          <Table todos={todos} setTodos={setTodos} />
+        </div>
+      </div>
     </div>
   );
 }
