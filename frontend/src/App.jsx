@@ -27,7 +27,7 @@ function App() {
         <nav className="py-8">
           <h1 className="text-2xl">Today's todo list</h1>
         </nav>
-        <div className="">
+        <div className="text-white">
           <TodoForm />
           <Table todos={todos} setTodos={setTodos} />
         </div>
